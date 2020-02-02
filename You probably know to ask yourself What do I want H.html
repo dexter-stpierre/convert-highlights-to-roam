@@ -1,0 +1,566 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>You probably know to ask yourself, &quot;What do I want?&quot; Here&#x27;s a way better question — Quartz</title><style>
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	opacity: 0.5;
+}
+
+.sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif; }
+.mono { font-family: Nitti, 'Microsoft YaHei', '微软雅黑', monospace; }
+.pdf .sans { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .code { font-family: Source Code Pro, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, KaiTi, STKaiTi, '华文楷体', KaiTi_GB2312, '楷体_GB2312', serif, 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC', 'Noto Sans CJK KR'; }
+
+.pdf .mono { font-family: PT Mono, Nitti, 'Microsoft YaHei', '微软雅黑', monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR'; }
+
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+</style></head><body><article id="82172478-9b3d-48ed-9c51-a719d72e5c82" class="page sans"><header><h1 class="page-title">You probably know to ask yourself, &quot;What do I want?&quot; Here&#x27;s a way better question — Quartz</h1><table class="properties"><tbody><tr class="property-row property-row-created_by"><th>Added By</th><td><span class="user"><img src="https://lh5.googleusercontent.com/-6qWVgXSCsn8/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rf9_9kQkZiuXu6rp0wRhrwO271-kw/photo.jpg" class="icon user-icon"/>Dexter St Pierre</span></td></tr><tr class="property-row property-row-text"><th>Author</th><td></td></tr><tr class="property-row property-row-text"><th>Description</th><td></td></tr><tr class="property-row property-row-multi_select"><th>Genres</th><td></td></tr><tr class="property-row property-row-text"><th>In Roam</th><td></td></tr><tr class="property-row property-row-url"><th>Link</th><td><a href="https://qz.com/584874/you-probably-know-to-ask-yourself-what-do-i-want-heres-a-way-better-question/" class="url-value">https://qz.com/584874/you-probably-know-to-ask-yourself-what-do-i-want-heres-a-way-better-question/</a></td></tr><tr class="property-row property-row-number"><th>Rating Out of 10</th><td>9</td></tr><tr class="property-row property-row-formula"><th>Read</th><td><div class="checkbox checkbox-on"></div></td></tr><tr class="property-row property-row-relation"><th>Related to Note Cards  (Article)</th><td></td></tr><tr class="property-row property-row-created_time"><th>Saved At</th><td><time>@Apr 13, 2019 7:39 PM</time></td></tr><tr class="property-row property-row-select"><th>Status</th><td><span class="selected-value">Complete</span></td></tr><tr class="property-row property-row-select"><th>Suggested By</th><td></td></tr><tr class="property-row property-row-select"><th>Type</th><td><span class="selected-value">article</span></td></tr></tbody></table></header><div class="page-body"><figure id="cf143747-b8dc-493f-a37d-cc38f25891c7" class="image"><a href="You%20probably%20know%20to%20ask%20yourself%20What%20do%20I%20want%20H/woman-865021.jpg"><img style="width:700px" src="You%20probably%20know%20to%20ask%20yourself%20What%20do%20I%20want%20H/woman-865021.jpg"/></a></figure><p id="84896645-c0a4-46d9-a5cf-92aebd841092" class="">Think about what you want.</p><p id="38b2cb29-42f6-497f-908f-0559394e4dfc" class="">Everybody wants what feels good. Everyone wants to live a carefree, happy and easy life, to fall in love and have amazing sex and relationships, to look perfect and make money and be popular and well-respected and admired and a total baller to the point that people part like the Red Sea when you walk into the room.</p><p id="d7d581c7-ba13-4052-b8cb-b4436c2abc2c" class="">Everyone would like that—it’s easy to like that.</p><p id="375ecb38-419c-43b2-a7ca-ff3860c200dc" class="">If I ask you, “What do <strong>you</strong> want out of life?” and you say something like, “I want to <a href="http://markmanson.net/stop-trying-to-be-happy">be happy</a> and have a great family and a job I like,” it’s so ubiquitous that it doesn’t even mean anything.</p><p id="4d69a747-50ba-468e-b3de-b51a178d9114" class=""><mark class="highlight-yellow_background">A more interesting question, a question that perhaps you’ve never considered before, is what pain do you want in your life?</mark> <mark class="highlight-yellow_background">What are you willing to struggle for?</mark> Because that seems to be a greater determinant of how our lives turn out.</p><p id="9ce05135-3b39-4c5e-8c48-8783244aebd6" class="">Everybody wants to have an <a href="http://markmanson.net/kill-your-day-job">amazing job</a> and financial independence—but not everyone wants to suffer through 60-hour work weeks, long commutes, obnoxious paperwork, to navigate arbitrary corporate hierarchies and the blasé confines of an infinite cubicle hell. P<mark class="highlight-yellow_background">eople want to be rich without </mark><mark class="highlight-yellow_background"><a href="http://markmanson.net/risk">the risk</a></mark><mark class="highlight-yellow_background">, without the sacrifice, without the delayed gratification necessary to accumulate wealth.</mark></p><p id="29b58201-5af4-43a5-89e7-97b42a9475e0" class="">Everybody wants to have great sex and an <a href="http://markmanson.net/fuck-yes">awesome relationship</a>—but not everyone is willing to go through the tough conversations, the awkward silences, the hurt feelings and the emotional psychodrama to get there. And so they settle. They settle and wonder “What if?” for years and years and until the question morphs from “What if?” into “Was that it?” And when the lawyers go home and the alimony check is in the mail they say, “What was that for?” if not for their lowered standards and expectations 20 years prior, then what for?</p><p id="d356646a-a301-42c2-a93d-e60e288d66c2" class="">Because <a href="http://markmanson.net/hidden-costs-of-happiness">happiness requires struggle</a>. <mark class="highlight-yellow_background">The positive is the side effect of handling the negative.</mark> You can only avoid negative experiences for so long before they come roaring back to life.</p><p id="93a8627d-f344-4b4b-9cc2-3545cbae5d15" class="">At the core of all human behavior, our needs are more or less similar. Positive experience is easy to handle. It’s negative experience that we all, by definition, struggle with. <mark class="highlight-yellow_background">Therefore, what we get out of life is not determined by the good feelings we desire but by what bad feelings we’re </mark><mark class="highlight-yellow_background"><a href="http://markmanson.net/find-what-you-love">willing and able to sustain</a></mark><mark class="highlight-yellow_background"> to get us to those good feelings.</mark></p><p id="793e262d-41b8-4b17-bc32-6a85e8acc3f5" class="">People want an amazing physique. But you don’t end up with one unless you legitimately appreciate the pain and physical stress that comes with living inside a gym for hour upon hour, unless you love calculating and calibrating <a href="http://markmanson.net/weight-loss">the food you eat</a>, planning your life out in tiny plate-sized portions.</p><p id="2900cf2e-0c81-4d64-a44c-9aed3dbfaa99" class="">People want to <a href="http://markmanson.net/33-things-every-aspiring-entrepreneur-should-know">start their own business</a> or become financially independent. But you don’t end up a successful entrepreneur unless you find a way to appreciate the risk, the uncertainty, the repeated failures, and working insane hours on something you have no idea whether will be successful or not.</p><p id="9225b33f-858f-4a12-92a4-706a77931f94" class="">People want a partner, a spouse. But you don’t end up attracting <a href="http://markmanson.net/amazing-person">someone amazing</a> without appreciating the emotional turbulence that comes with weathering rejections, building the sexual tension that never gets released, and staring blankly at a phone that never rings. It’s part of the game of love. You can’t win if you don’t play.</p><p id="9206ebbe-faca-49df-ac5a-c0fcb6bca9c6" class=""><mark class="highlight-yellow_background">What determines your success isn’t “What do you want to enjoy?” The question is, “What pain do you want to sustain?” </mark>The quality of your life is not determined by the quality of your positive experiences but the quality of your negative experiences. And <mark class="highlight-yellow_background">to get good at dealing with negative experiences is to get good at dealing with life.</mark></p><p id="61294c43-f022-4a17-963a-feb964ab9c69" class="">There’s a lot of <a href="http://markmanson.net/the-secret">crappy advice</a> out there that says, “You’ve just got to want it enough!”</p><p id="68957a43-bf9c-4951-aa18-8f027500b22b" class="">Everybody wants something. And everybody <a href="http://markmanson.net/everything-you-need">wants something enough</a>. They just aren’t aware of what it is they want, or rather, what they want “enough.”</p><p id="98e98aca-b2f1-4a3d-be14-def66e75c9e1" class="">Because if you want the benefits of something in life, you have to also want <a href="http://markmanson.net/you-cant-have-it-all">the costs</a>. If you want the beach body, you have to want the sweat, the soreness, the early mornings, and the hunger pangs. If you want the yacht, you have to also want the late nights, the risky business moves, and the possibility of pissing off a person or ten thousand.</p><p id="0e9a263a-c43f-4889-9e95-23b4d89833b6" class=""><mark class="highlight-yellow_background">If you find yourself wanting something month after month, year after year, yet nothing happens and you never come any closer to it, then maybe what you </mark><mark class="highlight-yellow_background"><a href="http://markmanson.net/dreams">actually want is a fantasy</a></mark>, an idealization, an image and a false promise. <mark class="highlight-yellow_background">Maybe what you want isn’t what you want, you just enjoy wanting. Maybe you don’t actually want it at all.</mark></p><p id="d980a964-9a3a-42a9-abfc-4199abd96e26" class="">Sometimes I ask people, “<mark class="highlight-yellow_background">How do you choose to suffer?</mark>” These people tilt their heads and look at me like I have twelve noses. But <mark class="highlight-yellow_background">I ask because that tells me far more about you than your desires and fantasies.</mark> Because you have to choose something. You can’t have a pain-free life. It can’t all be roses and unicorns. And ultimately that’s the hard question that matters. <mark class="highlight-yellow_background">Pleasure is an easy question. And pretty much all of us have similar answers. The more interesting question is the pain. What is the pain that you want to sustain?</mark></p><p id="e82bb244-df84-4b54-ab4f-0f54e083affb" class=""><mark class="highlight-yellow_background">That answer will actually get you somewhere. It’s the question that can change your life.</mark> It’s what makes me me and you you. <mark class="highlight-yellow_background">It’s what defines us and separates us and ultimately brings us together.</mark></p><p id="47b19c7d-0609-4751-bf22-cd19aff742f6" class="">For most of my adolescence and young adulthood, I fantasized about being a musician — a rock star, in particular. Any badass <a href="http://markmanson.net/playing-guitar">guitar</a> song I heard, I would always close my eyes and envision myself up on stage playing it to the screams of the crowd, people absolutely losing their minds to my sweet finger-noodling. This fantasy could keep me occupied for hours on end. The fantasizing continued up through college, even after I dropped out of music school and stopped playing seriously. But even then it was never a question of if I’d ever be up playing in front of screaming crowds, but when. I was biding my time before I could invest the proper amount of time and effort into getting out there and making it work. First, I needed to finish school. Then, I needed to make money. Then, I needed to find the time. Then … and then nothing.</p><p id="22af6ab0-2207-4937-87aa-ff292b18dfdb" class="">
+</p><p id="c6b4032d-383d-4872-a8dc-794ca5eed938" class="">Despite fantasizing about this for over half of my life, the reality never came. And it took me a long time and a lot of negative experiences to finally figure out why: I didn’t actually want it.</p><p id="69af902b-6c36-4c2a-9b4f-68d9ca66f0d5" class="">I was in love with the result—the image of me on stage, people cheering, me rocking out, pouring my heart into what I’m playing—but I wasn’t in love with the process. And because of that, I failed at it. Repeatedly. Hell, I didn’t even try hard enough to fail at it. I hardly tried at all.</p><p id="bf1268a1-4b2e-4b39-9500-2207c49c984b" class="">The daily drudgery of practicing, the logistics of finding a group and rehearsing, the pain of finding gigs and actually getting people to show up and give a shit. The broken strings, the blown tube amp, hauling 40 pounds of gear to and from rehearsals with no car. It’s a mountain of a dream and a mile-high climb to the top. And what it took me a long time to discover is that I didn’t like to climb much. I just liked to imagine the top.</p><p id="461f7da6-c2bf-425a-b9bd-6d5ab079adc6" class="">Our culture would tell me that I’ve somehow failed myself, that I’m a quitter or a loser. <a href="http://markmanson.net/self-help">Self-help</a> would say that I either wasn’t courageous enough, determined enough or I didn’t believe in myself enough. The entrepreneurial/start-up crowd would tell me that I chickened out on my dream and gave in to my conventional social conditioning. I’d be told to do affirmations or join a mastermind group or manifest or something.</p><p id="7aff3f72-ed00-4c1f-9aa6-45cc6245a605" class="">But the truth is far less interesting than that: I thought I wanted something, but it turns out I didn’t. End of story.</p><p id="e319a931-a9af-4383-aa71-284e1343e8d7" class="">I wanted the reward and not the struggle. <mark class="highlight-yellow_background">I wanted the result and not the process. I was in love not with the fight but only the victory. And </mark><mark class="highlight-yellow_background"><a href="http://markmanson.net/four-stages-of-life">life doesn’t work that way</a></mark><mark class="highlight-yellow_background">.</mark></p><p id="f4a82284-ce14-44be-b427-27e1498a6413" class=""><mark class="highlight-yellow_background">Who you are is defined by the values you are willing to struggle for.</mark> People who enjoy the struggles of a gym are the ones who get in good shape. People who enjoy long workweeks and the politics of the corporate ladder are the ones who move up it. People who enjoy the stresses and uncertainty of the starving artist lifestyle are ultimately the ones who live it and make it.</p><p id="65b28930-e9bb-456e-95fe-ff6448805b80" class="">This is not a call for willpower or “grit.” This is not another admonishment of “no pain, no gain.”</p><p id="2b724c4c-82a5-43ab-91bc-fab72c9c60e7" class="">This is the most simple and basic component of life: <mark class="highlight-yellow_background">our struggles determine our successes. So choose your struggles wisely, my friend.</mark></p><p id="0918daef-8a35-42ec-84cf-70d6c03ea42e" class=""><em>This post originally appeared on </em><a href="http://markmanson.net/question"><em>MarkManson.net</em></a><em>. Follow </em><a href="https://twitter.com/iammarkmanson"><em>@iammarkmanson</em></a><em> on Twitter.</em></p><p id="e362845f-e081-4213-a813-34f62a268dcd" class="">Stay updated about Quartz products and events.</p></div></article></body></html>
