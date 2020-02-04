@@ -1,6 +1,8 @@
 import { readFile, writeFile } from 'fs';
 import * as Europa from 'node-europa';
 
+import { notionParser } from './parsers/notion';
+
 // Make sure we got a filename on the command line.
 if (process.argv.length < 3) {
   console.log('Usage: node ' + process.argv[1] + ' FILEPATH');
@@ -31,15 +33,14 @@ const convertHighlights = (html: string): string => {
 
 const convertFile = async (filePath: string): Promise<string> => {
   const fileContents = await openFile(filePath);
-  const body = extractBody(fileContents);
-  const replacedHighlights = convertHighlights(body);
-  const md = europa.convert(replacedHighlights);
+  const parsedData = notionParser(fileContents);
+  const md = europa.convert(parsedData);
   return md;
 }
 
 (async function() {
   const filePath: string = process.argv[2];
-  const md = convertFile(filePath);
+  const md = await convertFile(filePath);
   writeFile(filePath.split('.html')[0]+'.md', md, (error) => {
     console.log(error);
   });
