@@ -1,5 +1,4 @@
 import { readFile, writeFileSync, opendirSync } from 'fs';
-import * as fs from 'fs';
 import * as Europa from 'node-europa';
 
 import * as Parsers from './parsers';
