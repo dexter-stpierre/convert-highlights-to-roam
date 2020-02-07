@@ -1,50 +1,83 @@
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFileSync, opendirSync } from 'fs';
+import * as fs from 'fs';
 import * as Europa from 'node-europa';
 
 import * as Parsers from './parsers';
-console.log(Parsers);
+
+const helpDocumentation = `Usage: node ${process.argv[1]} [filePath|folderPath]=PATH [FLAG=VALUE]
+Flags:
+  parser: evernote|notion
+`;
+interface commandlineOptions {
+  filePath?: string;
+  parser?: string;
+  folderPath?: string;
+}
+
+const args = process.argv.slice(2);
+const options: commandlineOptions = {};
+args.forEach(argument => {
+  const [ key, value ] = argument.split('=');
+  options[key] = value;
+})
+
 // Make sure we got a filename on the command line.
-if (process.argv.length < 3) {
-  console.log('Usage: node ' + process.argv[1] + ' FILEPATH');
+if (!options.folderPath && !options.filePath) {
+  console.error('filePath or folderPath required');
+  console.log(helpDocumentation);
   process.exit(1);
 }
 
+const start = new Date();
+
 const europa = new Europa({inline: true});
 
-const openFile = (filePath: string): Promise<string> => {
+const openFile = (filePath: string): Promise<{name: string, contents: string}> => {
   return new Promise((resolve, reject) => {
     readFile(filePath, { encoding: "utf8" }, (error, data) => {
       if (error) return reject(error);
-      resolve(data);
+      resolve({name: filePath, contents: data});
     })
   });
 };
 
-const convertFile = async (parser, filePath: string): Promise<string> => {
-  const fileContents = await openFile(filePath);
+const openFilesInFolder = async (folderPath): Promise<{name: string, contents: string}[]> => {
+  const directory = opendirSync(folderPath);
+  const files: {name: string, contents: string}[] = [];
+
+  for await (const dirent of directory) {
+    if (!dirent.name.includes('.html')) continue;
+    const file = await openFile(`${directory.path}/${dirent.name}`);
+    files.push(file);
+  }
+
+  return files;
+}
+
+const convertFileContents = (parser, fileContents: string): string => {
   const parsedData = parser(fileContents);
   const md = europa.convert(parsedData);
   return md;
 }
 
-interface commandlineOptions {
-  filePath?: string;
-  parser?: string;
-}
-
 (async function() {
-  const args = process.argv.slice(2);
-  const options: commandlineOptions = {};
-  args.forEach(argument => {
-    const [ key, value ] = argument.split('=');
-    options[key] = value;
-  })
-
   const parser = Parsers[options.parser];
-  console.log(parser);
-  const filePath: string = process.argv[2];
-  const md = await convertFile(parser, filePath);
-  writeFile(filePath.split('.html')[0]+'.md', md, (error) => {
-    console.log(error);
+  let files: {name: string, contents: string}[];
+
+  if (options.filePath) {
+    files = [ await openFile(options.filePath) ];
+  } else if (options.folderPath) {
+    files = await openFilesInFolder(options.folderPath);
+  }
+
+  const convertedFiles = files.map((file) => {
+    const contents = convertFileContents(parser, file.contents);
+    return {...file, contents: contents};
   });
+
+  for await (const file of convertedFiles) {
+    await writeFileSync(file.name.split('.html')[0]+'.md', file.contents);
+  }
+
+  console.log('Runtime: ', new Date().valueOf() - start.valueOf());
 })()
