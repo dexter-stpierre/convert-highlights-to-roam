@@ -4,9 +4,8 @@ const extractBody = (html: string): string => {
 }
 
 const convertHighlights = (html: string): string => {
-  const replacedBeginningHighlights = html.replace(/(<mark class="highlight-[a-z]+_background">)+/g, '^^');
-  const replacedEndHighlights = replacedBeginningHighlights.replace(/(<\/mark>)+/g, '^^');
-  return replacedEndHighlights;
+  const replacedHighlights = html.replace(/<mark class="highlight-[a-z]+_background">(.*?)<\/mark>/g, '^^$1^^');
+  return replacedHighlights;
 }
 
 export const notionParser = (html: string) => {
