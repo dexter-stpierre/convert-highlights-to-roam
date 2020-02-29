@@ -1,5 +1,5 @@
 import { readFile, writeFileSync, opendirSync } from 'fs';
-import * as Europa from 'node-europa';
+import * as Showdown from 'showdown';
 
 import * as Parsers from './parsers';
 
@@ -9,12 +9,15 @@ Flags:
 `;
 interface commandlineOptions {
   filePath?: string;
-  parser?: string;
+  parser: 'evernote' | 'notion';
   folderPath?: string;
+  [key: string]: string | undefined;
 }
 
 const args = process.argv.slice(2);
-const options: commandlineOptions = {};
+const options: commandlineOptions = {
+  parser: 'evernote',
+};
 args.forEach(argument => {
   const [ key, value ] = argument.split('=');
   options[key] = value;
@@ -29,7 +32,7 @@ if (!options.folderPath && !options.filePath) {
 
 const start = new Date();
 
-const europa = new Europa({inline: true});
+const converter = new Showdown.Converter();
 
 const openFile = (filePath: string): Promise<{name: string, contents: string}> => {
   return new Promise((resolve, reject) => {
@@ -40,7 +43,7 @@ const openFile = (filePath: string): Promise<{name: string, contents: string}> =
   });
 };
 
-const openFilesInFolder = async (folderPath): Promise<{name: string, contents: string}[]> => {
+const openFilesInFolder = async (folderPath: string): Promise<{name: string, contents: string}[]> => {
   const directory = opendirSync(folderPath);
   const files: {name: string, contents: string}[] = [];
 
@@ -53,9 +56,9 @@ const openFilesInFolder = async (folderPath): Promise<{name: string, contents: s
   return files;
 }
 
-const convertFileContents = (parser, fileContents: string): string => {
+const convertFileContents = (parser: (html: string) => string, fileContents: string): string => {
   const parsedData = parser(fileContents);
-  const md = europa.convert(parsedData);
+  const md = converter.makeMarkdown(parsedData);
   return md;
 }
 
@@ -67,6 +70,8 @@ const convertFileContents = (parser, fileContents: string): string => {
     files = [ await openFile(options.filePath) ];
   } else if (options.folderPath) {
     files = await openFilesInFolder(options.folderPath);
+  } else {
+    files = [];
   }
 
   const convertedFiles = files.map((file) => {
@@ -79,4 +84,4 @@ const convertFileContents = (parser, fileContents: string): string => {
   }
 
   console.log('Runtime: ', new Date().valueOf() - start.valueOf());
-})()
+})();
