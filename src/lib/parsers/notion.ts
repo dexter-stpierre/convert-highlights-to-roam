@@ -1,4 +1,5 @@
 const extractBody = (html: string): string => {
+  if (!html.includes('<div class="page-body">')) return html;
   const [, withoutBeginning] = html.split('<div class="page-body">');
   return withoutBeginning;
 }
@@ -9,6 +10,7 @@ const convertHighlights = (html: string): string => {
 }
 
 export const notionParser = (html: string) => {
+
   const body = extractBody(html);
   const replacedHighlights = convertHighlights(body);
   return replacedHighlights;
