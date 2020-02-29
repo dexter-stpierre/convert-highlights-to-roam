@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import { convertHtmlToMarkdown } from './lib/converter';
 
 function App() {
+  const [html, setHtml] = useState('<h1>Hello World</h1>');
+  const [md, setMd] = useState('');
+  const [parser, setParser] = useState<'evernote'| 'notion'>('evernote');
+
+  const convertHtml = (html: string) => {
+    const markdown = convertHtmlToMarkdown(html, parser);
+    setMd(markdown);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <select value={parser} onChange={(event) => setParser(event.target.value as 'evernote' | 'notion')}>
+          <option value="evernote">Evernote</option>
+          <option value="notion">Notion</option>
+        </select>
+        <textarea value={html} onChange={(event) => setHtml(event.target.value)}></textarea>
+        <button onClick={() => convertHtml(html)}>Convert</button>
+        {md}
     </div>
   );
 }
